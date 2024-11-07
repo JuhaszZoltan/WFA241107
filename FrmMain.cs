@@ -8,12 +8,21 @@ public partial class FrmMain : Form
     {
         InitializeComponent();
         this.Load += FrmMain_Load;
+        txb.TextChanged += Txb_TextChanged;
     }
 
-    private void FrmMain_Load(object? sender, EventArgs e)
+    private void Txb_TextChanged(object? sender, EventArgs e) 
+        => Lekerdezes(txb.Text);
+
+    private void FrmMain_Load(object? sender, EventArgs e) 
+        => Lekerdezes();
+
+    private void Lekerdezes(string szoveg = "")
     {
+        rtb.Clear();
+
         //server 'címe':
-        string connectionString = 
+        string connectionString =
             "SERVER = (localdb)\\MSSQLLocalDB;" +
             "DATABASE = elso;";
 
@@ -22,15 +31,21 @@ public partial class FrmMain : Form
         conn.Open();
 
         //def. query
-        SqlCommand cmd = new("SELECT * FROM emberek;", conn);
+        SqlCommand cmd = new(
+            "SELECT * FROM emberek " +
+            $"WHERE nev LIKE '{szoveg}%';",
+            conn);
 
         //run. query
         SqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read())
         {
             //output
-            rtb.Text += $"{reader["id"]} {reader["nev"]} {reader["szul"]} {reader["jogsi"]}\n";
+            rtb.Text +=
+                $"{reader["id"]} " +
+                $"{reader["nev"]} " +
+                $"{reader.GetDateTime(2):yyyy-MM-dd} " +
+                $"{(reader.GetBoolean(3) ? "van" : "nincs")}\n";
         }
-
     }
 }

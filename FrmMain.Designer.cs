@@ -29,31 +29,42 @@
         private void InitializeComponent()
         {
             rtb = new RichTextBox();
+            txb = new TextBox();
             SuspendLayout();
             // 
             // rtb
             // 
-            rtb.Location = new Point(12, 12);
+            rtb.Location = new Point(12, 50);
             rtb.Name = "rtb";
-            rtb.Size = new Size(367, 260);
+            rtb.Size = new Size(367, 222);
             rtb.TabIndex = 0;
             rtb.Text = "";
+            // 
+            // txb
+            // 
+            txb.Location = new Point(12, 12);
+            txb.Name = "txb";
+            txb.Size = new Size(367, 32);
+            txb.TabIndex = 1;
             // 
             // FrmMain
             // 
             AutoScaleDimensions = new SizeF(11F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(391, 284);
+            Controls.Add(txb);
             Controls.Add(rtb);
             Font = new Font("Segoe UI", 14F);
             Margin = new Padding(5);
             Name = "FrmMain";
             Text = "Form1";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private RichTextBox rtb;
+        private TextBox txb;
     }
 }
